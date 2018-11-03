@@ -1,4 +1,5 @@
 import getpass
+from robobrowser import RoboBrowser
 import re
 import sys
 import time
