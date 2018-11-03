@@ -1,6 +1,4 @@
-from PyQt5.QtCore import Qt
-from PyQt5.QtWidgets import (QWidget, QGridLayout, QLabel, QPushButton, QLineEdit, QTextEdit, QApplication)
-from robobrowser import RoboBrowser
+import getpass
 import re
 import sys
 import time
@@ -64,7 +62,7 @@ date = input("Date: ")
 starti = int(input("i0 = "))
 endi = int(input("in = "))
 username = input("ITSC: ")
-password = input("Password: ")
+password = getpass.getpass("Password: ")
 
 l1 = list(range(starti, endi))
 
