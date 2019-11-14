@@ -28,24 +28,30 @@ def trywith(l3, ccode, lectsession, date, login1, login2):
     lvlink = "https://rvc.ust.hk/mgmt/media.aspx?path=18FA_" + ccode + "-" + lectsession + "_" + date + "_"
     counter = 0
     starttime = time.time()
+    browser = RoboBrowser(history=True)
+    browser.open(lvlink + str(l3[0]))
+    form = browser.get_form(id="fm1")
+    form["username"].value = login1
+    form["password"].value = login2
+    browser.submit_form(form)
+    htmlsource = str(browser.parsed)
+    print(htmlsource)
+
     for i2 in l3:
         if counter > 4:
             endtime = time.time()
             timetaken = endtime - starttime
 
-        browser = RoboBrowser(history=True)
-        browser.open(lvlink + str(i2))
-        form = browser.get_form(id="fm1")
-        form["username"].value = login1
-        form["password"].value = login2
 
-        browser.submit_form(form)
+        if counter % 7000 == 0 and counter > 6000:
+            print("Sleeping, will resume in 30 seconds.")
+            time.sleep(30)
+        browser.open(lvlink + str(i2))
         htmlsource = str(browser.parsed)
         print(htmlsource)
-
         recas = re.findall("To access the protected service", htmlsource)
         while len(recas) > 0:
-            browser = RoboBrowser(history=True)
+            #browser = RoboBrowser(history=True)
             browser.open(lvlink + str(i2))
             form = browser.get_form(id="fm1")
             form["username"].value = login1
