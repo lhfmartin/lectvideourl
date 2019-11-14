@@ -49,6 +49,8 @@ def trywith(l3, ccode, lectsession, date, login1, login2):
             print(str(p) + "%")
         else:
             print("Done!", "Link: " + lvlink + str(i2))
+            with open("cs2611urls.txt", "a") as f:
+                f.write("\n\n" + date[4:6] + "/" + date[2:4] + ":\n" + lvlink + str(i2) + "\n")
             return (lvlink + str(i2))
         if counter > 4:
             eta = (len(l3) - counter) / 2 * timetaken
