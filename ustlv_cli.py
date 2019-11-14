@@ -30,10 +30,6 @@ def trywith(l3, ccode, lectsession, date, login1, login2):
     starttime = time.time()
     browser = RoboBrowser(history=True)
     browser.open(lvlink + str(l3[0]))
-    form = browser.get_form(id="fm1")
-    form["username"].value = login1
-    form["password"].value = login2
-    browser.submit_form(form)
     htmlsource = str(browser.parsed)
     print(htmlsource)
 
@@ -51,17 +47,13 @@ def trywith(l3, ccode, lectsession, date, login1, login2):
         print(htmlsource)
         recas = re.findall("To access the protected service", htmlsource)
         while len(recas) > 0:
-            #browser = RoboBrowser(history=True)
+            browser = RoboBrowser(history=True)
             browser.open(lvlink + str(i2))
-            form = browser.get_form(id="fm1")
-            form["username"].value = login1
-            form["password"].value = login2
-            browser.submit_form(form)
             htmlsource = str(browser.parsed)
             print(htmlsource)
             recas = re.findall("To access the protected service", htmlsource)
             
-        relist = re.findall("System error encount", htmlsource)
+        relist = re.findall("Invalid Video", htmlsource)
         if(len(relist) != 0):
             print("False", "(" + str(l3[counter]) + ")")
             p = round(counter / len(l3) * 100, 2)
